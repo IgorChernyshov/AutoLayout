@@ -32,18 +32,25 @@ class ViewController: UIViewController {
 		label5.backgroundColor = UIColor.orange
 		label5.text = "LABELS"
 
-		let viewsDictionary = ["label1": label1, "label2": label2, "label3": label3, "label4": label4, "label5": label5]
+		let labels = [label1, label2, label3, label4, label5]
+		var viewsDictionary = [String: UILabel]()
+		for (index, label) in labels.enumerated() {
+			viewsDictionary["label\(index)"] = label
+		}
 
 		var previous: UILabel?
 
-		viewsDictionary.values.forEach {
+		labels.forEach {
 			$0.translatesAutoresizingMaskIntoConstraints = false
 			$0.sizeToFit()
 			view.addSubview($0)
 
 			// Constraints
-			$0.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-			$0.heightAnchor.constraint(equalToConstant: 64).isActive = true
+			$0.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8).isActive = true
+			$0.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8).isActive = true
+
+			$0.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.2, constant: -10).isActive = true
+
 			if let previous = previous {
 				$0.topAnchor.constraint(equalTo: previous.bottomAnchor, constant: 10).isActive = true
 			} else {
